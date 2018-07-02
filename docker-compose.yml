@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      APP_ENV: docker
     #command: /var/www/docker.sh
     volumes:
       - .:/var/www

@@ -5,9 +5,8 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.0",
-        "zendframework/zend-component-installer": "^1.0 || ^0.7 || ^1.0.0-dev@dev",
-        "zendframework/zend-mvc": "^3.0.1",
-        "zfcampus/zf-development-mode": "^3.0"
+        "zendframework/zend-component-installer": "^1.0",
+        "zendframework/zend-mvc": "^3.0.1"
     },
     "autoload": {
         "psr-4": {
@@ -23,12 +22,6 @@
     "scripts": {
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "development-disable": "zf-development-mode disable",
-        "development-enable": "zf-development-mode enable",
-        "development-status": "zf-development-mode status",
-        "post-create-project-cmd": [
-            "@development-enable"
-        ],
         "test": "phpunit"
     }
 }

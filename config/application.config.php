@@ -23,8 +23,9 @@ return [
         // An array of paths from which to glob configuration files after
         // modules are loaded. These effectively override configuration
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
+        // Using APP_ENV to load per-env config
         'config_glob_paths' => [
-            realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php',
+            realpath(__DIR__) . sprintf('/autoload/{,*.}{global,%s,local}.php', getenv('APP_ENV') ?: 'production'),
         ],
 
         // Whether or not to enable a configuration cache.
