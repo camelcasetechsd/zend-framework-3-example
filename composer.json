@@ -23,5 +23,9 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "zendframework/zend-test": "^3.2"
     }
 }
