@@ -9,5 +9,6 @@ return [
     'Zend\Router',
     'Zend\Validator',
     'Application',
-    'Catalog',
+    'Product',
+    'Category',
 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Catalog\Controller;
+namespace Product\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -9,7 +9,7 @@ class ProductController extends AbstractActionController
 {
     public function indexAction()
     {
-      // echo 'ok'; die;
+        //echo 'ok'; die;
         return new ViewModel();
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Catalog;
+namespace Category;
 
 class Module
 {
