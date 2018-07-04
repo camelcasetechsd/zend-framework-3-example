@@ -23,7 +23,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\CategoryController::class => InvokableFactory::class,
+            Controller\CategoryController::class => Controller\CategoryControllerFactory::class,
         ],
     ],
     'view_manager' => [
