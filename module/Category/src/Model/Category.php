@@ -17,6 +17,7 @@ class Category
         $categoryEntity = new CategoryEntity();
         $categoryEntity->setName("dumy name");
         $categoryEntity->setDescription("dumy description");
+        $entityManager->persist($categoryEntity);
         $entityManager->flush($categoryEntity);
     }
 }

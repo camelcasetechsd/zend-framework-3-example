@@ -3,6 +3,7 @@
 namespace Category;
 
 use Doctrine\ORM\EntityManager;
+use DoctrineORMModule\Service\EntityManagerAliasCompatFactory;
 use DoctrineORMModule\Service\EntityManagerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -14,7 +15,7 @@ return [
             'category' => 'Category\Controller\CategoryController',
         ),
         'factories' => array(
-            EntityManager::class => EntityManagerFactory::class,
+
         ),
     ],
     'router' => [
@@ -34,7 +35,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\CategoryController::class => InvokableFactory::class,
+            Controller\CategoryController::class => Controller\CategoryControllerFactory::class,
         ],
     ],
     'view_manager' => [
