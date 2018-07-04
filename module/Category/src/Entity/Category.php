@@ -51,6 +51,14 @@ class Category
     }
 
     /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @param mixed $products
      */
     public function setProducts($products)

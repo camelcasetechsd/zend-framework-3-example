@@ -2,30 +2,69 @@
 
 namespace Product\Controller;
 
+use Category\Model\Category as CategoryModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-
+use Doctrine\ORM\EntityManager;
+use Product\model\Product as ProductModel;
 class ProductController extends AbstractActionController
 {
+    /**
+     * Entity manager.
+     * @var Doctrine\ORM\EntityManager
+     */
+    private $entityManager;
+
+    public function __construct($serviceManager)
+    {
+        $this->entityManager = $serviceManager->get(EntityManager::class);
+    }
     public function indexAction()
     {
-        return new ViewModel();
+        $productModel = new ProductModel($this->entityManager);
+        $products = $productModel->getProducts();
+        return new ViewModel(["products"=>$products]);
     }
 
     public function newAction()
     {
-        return new ViewModel();
+        if ($this->getRequest()->isPost()){
+            $data = $this->params()->fromPost();
+            $productModel = new ProductModel($this->entityManager);
+            $productModel->createProduct($data["name"], $data["description"]);
+            $this->redirect()->toUrl("/products");
+        }
+        $categoryModel = new CategoryModel($this->entityManager);
+        return new ViewModel(["categories" => $categoryModel->getCategories()]);
     }
     public function editAction()
     {
-        return new ViewModel();
+        $id = $this->params("id");
+        $productModel = new ProductModel($this->entityManager);
+        $productEntity = $productModel->getProduct($id);
+        if ($this->getRequest()->isPost()) {
+            $data = $this->params()->fromPost();
+            $productModel->editProduct($id, $data["name"], $data["description"]);
+            $this->redirect()->toUrl("/products");
+        }
+        return new ViewModel(["product"=>$productEntity]);
     }
     public function showAction()
     {
-        return new ViewModel();
+        $id = $this->params("id");
+
+        $productModel = new ProductModel($this->entityManager);
+        $productEntity = $productModel->getProduct($id);
+
+        return new ViewModel(["product"=>$productEntity]);
     }
     public function deleteAction()
     {
-        return new ViewModel();
+        $id = $this->params("id");
+
+        $productModel = new ProductModel($this->entityManager);
+        $productEntity = $productModel->deleteProduct($id);
+
+        $this->redirect()->toUrl("/products");
     }
 }

@@ -1,3 +1,35 @@
 <div class="jumbotron">
-    <h1>Category Index</h1>
+    <h1>Categories</h1>
+</div>
+<div>
+    <a href="/categories/new" class="btn btn-success">Create New Category</a>
+</div>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($categories as $category)
+            {
+                echo "<tr>";
+                    echo "<td>".$category->getName()."</td>";
+                    echo "<td>".$category->getDescription()."</td>";
+                    echo "<td><a href='/categories/show/".$category->getId().
+                        "'> show <i class='glyphicon glyphicon-play'></i></a>";
+                    echo "<a href='/categories/edit/".$category->getId().
+                        "'> edit <i class='glyphicon glyphicon-edit'></i></a>";
+                    echo "<a href='/categories/delete/".$category->getId().
+                        "'> delete <i class='glyphicon glyphicon-remove'></i></a>".
+                        "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
 </div>

@@ -1,0 +1,7 @@
+<div class="jumbotron">
+    <h1><?php echo $product->getName(); ?> Product</h1>
+</div>
+<div class="container">
+    <pre><?php echo $product->getDescription(); ?></pre>
+    <a href='/products/edit/<?php echo $product->getId() ?>' class="btn btn-success">Edit this Product</a>
+</div>

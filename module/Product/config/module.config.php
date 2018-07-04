@@ -7,15 +7,56 @@ use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
+
     'router' => [
         'routes' => [
             'products' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/products[/:action]',
+                    'route'    => '/products',
                     'defaults' => [
-                        'controller' => \Product\Controller\ProductController::class,
+                        'controller' => Controller\ProductController::class,
                         'action'     => 'index',
+                    ],
+                ],
+            ],
+            'createProducts' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/products/new',
+                    'defaults' => [
+                        'controller' => Controller\ProductController::class,
+                        'action'     => 'new',
+                    ],
+                ],
+            ],
+            'editProducts' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/products/edit/[:id]',
+                    'defaults' => [
+                        'controller' => Controller\ProductController::class,
+                        'action'     => 'edit',
+                    ],
+                ],
+            ],
+            'showProduct' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/products/show/[:id]',
+                    'defaults' => [
+                        'controller' => Controller\ProductController::class,
+                        'action'     => 'show',
+                    ],
+                ],
+            ],
+            'deleteProduct' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/products/delete/[:id]',
+                    'defaults' => [
+                        'controller' => Controller\ProductController::class,
+                        'action'     => 'delete',
                     ],
                 ],
             ],
@@ -23,7 +64,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            \Product\Controller\ProductController::class => InvokableFactory::class,
+            Controller\ProductController::class => Controller\ProductControllerFactory::class,
         ],
     ],
     'view_manager' => [
@@ -35,6 +76,10 @@ return [
         'template_map' => [
             'layout/layout'         => __DIR__ . '/../../../view/layout/layout.phtml',
             'product/product/index' => __DIR__ . '/../../../view/product/index/index.phtml',
+            'product/product/new' => __DIR__ . '/../../../view/product/index/new.phtml',
+            'product/product/edit' => __DIR__ . '/../../../view/product/index/edit.phtml',
+            'product/product/show' => __DIR__ . '/../../../view/product/index/show.phtml',
+            'product/product/delete' => __DIR__ . '/../../../view/product/index/delete.phtml',
             'error/404'             => __DIR__ . '/../../../view/error/404.phtml',
             'error/index'           => __DIR__ . '/../../../view/error/index.phtml',
         ],

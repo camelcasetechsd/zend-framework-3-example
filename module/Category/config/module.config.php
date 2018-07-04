@@ -23,14 +23,53 @@ return [
             'categories' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/categories[/:action]',
+                    'route'    => '/categories',
                     'defaults' => [
                         'controller' => Controller\CategoryController::class,
                         'action'     => 'index',
                     ],
                 ],
             ],
-
+            'createCategories' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/categories/new',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'new',
+                    ],
+                ],
+            ],
+            'editCategories' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/categories/edit/[:id]',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'edit',
+                    ],
+                ],
+            ],
+            'showCategory' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/categories/show/[:id]',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'show',
+                    ],
+                ],
+            ],
+            'deleteCategory' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/categories/delete/[:id]',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'delete',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [

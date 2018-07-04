@@ -22,7 +22,7 @@ return [
                 // register `annotation_driver` for any entity under namespace `\Entity`
                 'Category\Entity' => 'annotation_driver',
                 'Product\Entity' => 'annotation_driver',
-            ],
+            ]       ,
         ],
     ],
 ],

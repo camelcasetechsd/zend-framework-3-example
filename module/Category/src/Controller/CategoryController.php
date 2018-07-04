@@ -2,12 +2,9 @@
 
 namespace Category\Controller;
 
+use Category\Model\Category;
 use Doctrine\ORM\EntityManager;
-use DoctrineORMModule\Service\EntityManagerFactory;
-use Psr\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\ViewModel;
 use Category\Model\Category as CategoryModel;
 class CategoryController extends AbstractActionController
@@ -18,33 +15,57 @@ class CategoryController extends AbstractActionController
      */
     private $entityManager;
 
-    public function __construct($entityManager)
+    public function __construct($serviceManager)
     {
-        $this->entityManager = $entityManager;
+        $this->entityManager = $serviceManager->get(EntityManager::class);
     }
+
     public function indexAction()
     {
-        $viewModel = new ViewModel();
-        return new $viewModel;
+        $categoryModel = new CategoryModel($this->entityManager);
+        $categories = $categoryModel->getCategories();
+        return new ViewModel(["categories"=>$categories]);
     }
 
     public function newAction()
     {
-        $categoryModel = new CategoryModel();
-        $categoryModel->getCategories($this->entityManager);
+        if ($this->getRequest()->isPost()){
+            $data = $this->params()->fromPost();
+            $categoryModel = new CategoryModel($this->entityManager);
+            $categoryModel->createCategory($data["name"], $data["description"]);
+            $this->redirect()->toUrl("/categories");
+        }
 
         return new ViewModel();
     }
     public function editAction()
     {
-        return new ViewModel();
+        $id = $this->params("id");
+        $categoryModel = new CategoryModel($this->entityManager);
+        $categoryEntity = $categoryModel->getCategory($id);
+        if ($this->getRequest()->isPost()) {
+            $data = $this->params()->fromPost();
+            $categoryModel->editCategory($id, $data["name"], $data["description"]);
+            $this->redirect()->toUrl("/categories");
+        }
+        return new ViewModel(["category"=>$categoryEntity]);
     }
     public function showAction()
     {
-        return new ViewModel();
+        $id = $this->params("id");
+
+        $categoryModel = new CategoryModel($this->entityManager);
+        $categoryEntity = $categoryModel->getCategory($id);
+
+        return new ViewModel(["category"=>$categoryEntity]);
     }
     public function deleteAction()
     {
-        return new ViewModel();
+        $id = $this->params("id");
+
+        $categoryModel = new CategoryModel($this->entityManager);
+        $categoryEntity = $categoryModel->deleteCategory($id);
+
+        $this->redirect()->toUrl("/categories");
     }
 }

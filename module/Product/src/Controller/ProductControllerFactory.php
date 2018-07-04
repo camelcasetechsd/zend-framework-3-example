@@ -3,21 +3,16 @@
  * Created by PhpStorm.
  * User: camelcase
  * Date: 7/4/18
- * Time: 12:43 PM
+ * Time: 6:29 PM
  */
 
-namespace Category\Controller;
+namespace Product\Controller;
 
 
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 
-class CategoryControllerFactory implements FactoryInterface
+class ProductControllerFactory
 {
-
     /**
      * Create an object
      *
@@ -37,7 +32,7 @@ class CategoryControllerFactory implements FactoryInterface
 //        $entityManager = $container->get('doctrine.entitymanager.orm_default');
 //        var_dump(get_class($entityManager));exit;
         // Instantiate the controller and inject dependencies
-        return new CategoryController($container);
+        return new ProductController($container);
 //        $service = (null === $options) ? new $requestedName : new $requestedName($options);
 //        return $service->setServiceManager($container);
 
