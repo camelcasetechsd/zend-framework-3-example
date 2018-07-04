@@ -2,7 +2,6 @@
 /**
  * Doctrine Global Config
  */
-
 return [
     'doctrine' => [
         'driver' => [
@@ -11,7 +10,8 @@ return [
                 'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
                 'cache' => 'array',
                 'paths' => [
-                    realpath(__DIR__ . '/../../module/Application/src/Entity'),
+                    realpath(__DIR__ . '/../../module/Product/src/Entity'),
+                    realpath(__DIR__ . '/../../module/Category/src/Entity'),
                 ],
             ],
             // default metadata driver, aggregates all other drivers into a single one.
@@ -19,7 +19,8 @@ return [
             'orm_default' => [
                 'drivers' => [
                     // register `annotation_driver` for any entity under namespace `Application\Entity`
-                    'Application\Entity' => 'annotation_driver',
+                    'Product\Entity' => 'annotation_driver',
+                    'Category\Entity' => 'annotation_driver',
                 ],
             ],
         ],

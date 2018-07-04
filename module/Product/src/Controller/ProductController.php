@@ -10,7 +10,8 @@ class ProductController extends AbstractActionController
     public function indexAction()
     {
         //echo 'ok'; die;
-        return new ViewModel();
+        $users = $this->getObjectManager()->getRepository('\Application\Entity\User')->findAll();
+        return new ViewModel(array('products' => $products));
     }
 
     public function addAction()

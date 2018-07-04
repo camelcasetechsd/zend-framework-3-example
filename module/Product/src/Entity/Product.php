@@ -24,7 +24,7 @@ class Product
      * @ORM\Column(type="string")
      * @var string
      */
-    private $name;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
