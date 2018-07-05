@@ -18,17 +18,26 @@ class CategoryController extends AbstractActionController
 
     public function indexAction()
     {
-        //echo 'ok'; die;
         $categories = new CategoryRepository($this->entityManager);
-
         $data = $categories->findAll();
-        // $products = $this->entityManager;
         return new ViewModel(['categories' => $data]);
     }
 
     public function addAction()
     {
         return new ViewModel();
+    }
+
+    public function addAjaxAction()
+    {
+        if($this->getRequest()->isPost()) {
+           $category = new CategoryRepository($this->entityManager);
+           // Fill in the form with POST data
+           $data = $this->params()->fromPost();
+           // var_dump($data);
+           $category->save($data);
+        }
+        die;
     }
 
     public function editAction()

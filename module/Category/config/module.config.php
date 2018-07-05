@@ -19,6 +19,26 @@ return [
                     ],
                 ],
             ],
+            'category-add' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/category/add',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'add',
+                    ],
+                ],
+            ],
+            'category-add-ajax' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/category/post',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'addAjax',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -35,7 +55,7 @@ return [
         'template_map' => [
           'layout/layout'           =>  __DIR__ . '/../../../themes/default/layout/layout.phtml',
           'category/category/index' => __DIR__ . '/../view/category/index.phtml',
-            // 'catalog/catalog/add' => __DIR__ . '/../view/catalog/add.phtml',
+          'category/category/add' => __DIR__ . '/../view/category/add.phtml',
             // 'catalog/catalog/edit' => __DIR__ . '/../view/catalog/edit.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
