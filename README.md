@@ -18,3 +18,7 @@ images it requires. For subsequent runs, the start up time should be much faster
 
 3. View the test page:
 http://localhost:8080/
+
+4. change data/DoctrineORMModule/Proxy permission to be writable
+   or run this command:
+   or run deploy.sh inside docker container
