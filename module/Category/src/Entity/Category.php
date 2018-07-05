@@ -18,13 +18,13 @@ class Category
      * @ORM\GeneratedValue(strategy="AUTO")
      * @var integer
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $name;
+    public $name;
 
 
     public function setName($name)

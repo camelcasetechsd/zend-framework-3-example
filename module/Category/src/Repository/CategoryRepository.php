@@ -32,7 +32,7 @@ class CategoryRepository extends EntityRepository
       // Create new Post entity.
         $category = new Category();
         // $category->name = $data['name'];
-        $category->setName('Phone');
+        $category->setName($data['name']);
 
         // Add the entity to entity manager.
         $this->entityManager->persist($category);
