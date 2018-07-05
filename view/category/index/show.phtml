@@ -1,0 +1,39 @@
+<div class="jumbotron">
+    <h1 class="text-center"><?php echo $category->getName(); ?> Category</h1>
+</div>
+<div class="container">
+    <pre><?php echo $category->getDescription(); ?></pre>
+    <a href="/categories/edit/<?php echo $category->getId();?>" class="btn btn-success" >Edit this Category</a>
+    <h1 class="text-center">Our Products</h1>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($products as $product)
+        {
+            echo "<tr>";
+            echo "<td>".$product->getName()."</td>";
+            echo "<td>".$product->getPrice()."</td>";
+            echo "<td>".$product->getDescription()."</td>";
+            echo "<td><a href='/categories/show/".$product->getCategory()->getId()."'>".$product->getCategory()->getName()."</a></td>";
+            echo "<td><a href='/products/show/".$product->getId().
+                "'> show <i class='glyphicon glyphicon-folder-close'></i></a>";
+            echo "<a href='/products/edit/".$product->getId().
+                "'> edit <i class='glyphicon glyphicon-edit'></i></a>";
+            echo "<a href='/categories/products/delete/".$product->getId().
+                "'> Remove from Category <i class='glyphicon glyphicon-remove'></i></a>".
+                "</td>";
+            echo "</tr>";
+        }
+        ?>
+        </tbody>
+    </table>
+</div>

@@ -10,12 +10,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "Category\\": "module/Category/src/",
+            "Product\\": "module/Product/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ApplicationTest\\": "module/Application/test/"
+            "ApplicationTest\\": "module/Application/test/",
+            "CategoryTest\\":"module/Category/test/",
+            "ProductTest\\":"module/Product/test/"
         }
     },
     "extra": [],
@@ -28,5 +32,8 @@
         "phpunit/phpunit": "^6.5",
         "zendframework/zend-test": "^3.2",
         "squizlabs/php_codesniffer": "^3.3"
+    },
+    "require": {
+        "doctrine/doctrine-orm-module": "^1.1"
     }
 }

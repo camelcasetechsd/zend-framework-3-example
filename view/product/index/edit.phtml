@@ -1,0 +1,40 @@
+<div class="jumbotron">
+    <h1 class="text-center">Edit Product</h1>
+</div>
+<div>
+    <form class="form-horizontal" action="/products/edit/<?php echo $product->getId(); ?>" method="post">
+        <div class="form-group">
+            <label for="name">Name: </label>
+            <input class="form-control" type="text" name="name" value="<?php echo $product->getName(); ?>" id="name" placeholder="name">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description: </label>
+            <input class="form-control" type="text" name="description" value="<?php echo $product->getDescription(); ?>" id="description" placeholder="description">
+        </div>
+        <div class="form-group">
+            <label for="price">Price: </label>
+            <input class="form-control" type="number" name="price" value="<?php echo $product->getPrice(); ?>" id="price" placeholder="price">
+        </div>
+        <div class="form-group">
+            <label for="category">Category: </label>
+            <select class="form-control" type="text" name="category" id="category">
+                <option disabled selected value>Select Category</option>
+                <?php
+                $selectedCategoryId = $product->getCategory()? $product->getCategory()->getId(): null;
+                foreach ($categories as $category) {
+                    if($selectedCategoryId == $category->getId()) {
+                        echo "<option selected value='".$category->getId()."'>".$category->getName()."</option>";
+                    }else {
+                        echo "<option value='".$category->getId()."'>".$category->getName()."</option>";
+                    }
+
+                }
+                ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success" type="submit">
+        </div>
+    </form>
+</div>
