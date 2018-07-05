@@ -17,7 +17,7 @@ class Category
      * @ORM\Column(type="integer");
      * @ORM\GeneratedValue(strategy="AUTO")
      * @var integer
-     */
+      */
     public $id;
 
     /**

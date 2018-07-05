@@ -14,5 +14,13 @@ return [
                 ],
             ],
         ],
+        'configuration' => [
+            // Configuration for service `doctrine.configuration.orm_default` service
+            'orm_default' => [
+                // directory where proxies will be stored. By default, this is in
+                // the `data` directory of your application
+                'proxy_dir'         => 'data/DoctrineORMModule/Proxy',
+            ],
+        ],
     ],
 ];

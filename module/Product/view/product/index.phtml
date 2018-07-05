@@ -1,7 +1,11 @@
 <div class="jumbotron">
     <h1>Manage Products</h1>
 </div>
-
+<?php
+// echo "<pre>";
+// echo var_dump($product->category);
+// echo "</pre>";
+?>
 <div class="row col-md-12">
   <a href="<?php echo $this->url('product-add') ?>" class="btn btn-primary"><b>+</b> Add new Prodct</a>
   <br><br>
@@ -10,18 +14,21 @@
    <thead>
        <tr>
          <th>ID</th>
+         <th>Category</th>
          <th>Product name</th>
          <th>price</th>
          <th>description</th>
+         <th>action</th>
        </tr>
    </thead>
       <?php foreach ($products as $product) { ?>
            <tr>
                <td><?php echo $product->id ?></td>
+               <td><a href="<?php echo $this->url('category-edit'); ?>/<?php echo $product->category_id; ?>"><?php echo $product->category->name ?></a></td>
                <td><?php echo $product->title ?></td>
                <td><?php echo $product->price ?></td>
                <td><?php echo $product->description ?></td>
-               <td class="pull-right">
+               <td >
                  <a class='btn btn-info' href="<?php echo $this->url('product-edit').'/'.$product->id ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                  <a data-productid="<?php echo $product->id; ?>" href="javascript:void(0)" class="btn btn-danger deleteProduct"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                </td>
