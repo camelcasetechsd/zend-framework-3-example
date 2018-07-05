@@ -2,49 +2,48 @@
     <h1>Manage Products</h1>
 </div>
 
-<div class="row col-md-6 col-md-offset-2 custyle">
-  <a href="#" class="btn btn-primary"><b>+</b> Add new Product</a>
+<div class="row col-md-10 col-md-offset-2 custyle">
+  <a href="<?php echo $this->url('product-add') ?>" class="btn btn-primary"><b>+</b> Add new Prodct</a>
   <br><br>
+   <?php if (count($products)) { ?>
    <table class="table table-striped">
    <thead>
        <tr>
-           <th>ID</th>
-           <th>Product name</th>
-           <th>description</th>
-           <th>created date</th>
-           <th>category</th>
-           <th class="text-center">Action</th>
+         <th>ID</th>
+         <th>Product name</th>
+         <th>price</th>
+         <th>description</th>
        </tr>
    </thead>
+      <?php foreach ($products as $product) { ?>
            <tr>
-               <td>1</td>
-               <td>News</td>
-               <td>News</td>
-               <td>News</td>
+               <td><?php echo $product->id ?></td>
+               <td><?php echo $product->title ?></td>
+               <td><?php echo $product->price ?></td>
+               <td><?php echo $product->description ?></td>
                <td class="text-center">
-                 <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                 <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                 <a class='btn btn-info btn-xs' href="<?php echo $this->url('product-edit').'/'.$product->id ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                 <a data-catid="<?php echo $product->id; ?>" href="javascript:void(0)" class="btn btn-danger btn-xs deleteCat"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                </td>
            </tr>
-           <tr>
-               <td>2</td>
-               <td>Products</td>
-               <td>Products</td>
-               <td>Products</td>
-               <td class="text-center">
-                 <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                 <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-               </td>
-           </tr>
-           <tr>
-               <td>3</td>
-               <td>Blogs</td>
-               <td>Blogs</td>
-               <td>Blogs</td>
-               <td class="text-center">
-                 <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                 <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-               </td>
-           </tr>
+      <?php } ?>
    </table>
+ <?php } else { ?>
+    <div class="alert alert-info"> Empty , <a href="<?php echo $this->url('product-add'); ?>">Wanna Add new products ?</a></div>
+ <?php } ?>
    </div>
+   <script type="text/javascript">
+     $(document).ready(function(){
+       $('.deleteCat').click(deleteCat);
+
+       function deleteCat(){
+         var $this = $(this);
+         var r = confirm("Are you sure you need to delete this product data?!");
+          if (r == true) {
+            $.post( "<?php echo $this->url('product-delete') ?>",{id:$this.data('catid')} ,function( data ) {
+              $this.parent().parent().fadeOut().css('background-color','red');
+            });
+          }
+       }
+     });
+   </script>

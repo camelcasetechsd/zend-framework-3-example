@@ -10,20 +10,74 @@ use Product\Entity\Product;
 class ProductRepository extends EntityRepository
 {
 
-  // add - update method
-  public function findAll(){
+  private $entityManager;
 
+  public function __construct($entityManager)
+  {
+     $this->entityManager = $entityManager;
   }
 
-  // add - update method
-  public function save(){
+    /**
+     * Retrieves all published posts in descending date order.
+     * @return Query
+     */
+    public function findAll()
+    {
+        $productRepository =  $this->entityManager->getRepository(Product::class);
+        return $productRepository->findAll();
+    }
 
-  }
+    public function find($id){
+      $row = $this->entityManager->getRepository(Product::class)
+              ->findOneById($id);
+      return $row;
+    }
 
-  // delete method
-  public function delete(){
+    public function findObj($id){
+      $row = $this->entityManager->getRepository(Product::class)->find($id);
+      return $row;
+    }
 
-  }
+    // add  method
+    public function create($data){
+      // Create new Post entity.
+        $product = new Product();
+        // $product->name = $data['name'];
+        $product->setCategoryId($data['category']);
+        $product->setTitle($data['title']);
+        $product->setDescription($data['description']);
+        $product->setprice($data['price']);
+
+        // Add the entity to entity manager.
+        $this->entityManager->persist($product);
+
+        // Apply changes to database.
+        $this->entityManager->flush();
+
+    }
+
+    // update  method
+    public function update($data){
+
+        $product = new Product();
+        $product->setId($data['id']);
+        $product->setName($data['name']);
+
+        // Add the entity to entity manager.
+        $this->entityManager->merge($product);
+
+        // Apply changes to database.
+        $this->entityManager->flush();
+
+    }
+
+    // delete cateogry method
+    public function delete($data){
+        $product = $this->findObj($data['id']);
+        $this->entityManager->remove($product);
+        // Apply changes to database.
+        $this->entityManager->flush();
+    }
 
 
 }

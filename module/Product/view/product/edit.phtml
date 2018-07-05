@@ -1,0 +1,26 @@
+<div class="jumbotron">
+    <h2>Edit Product Information</h2>
+</div>
+<div class="row col-md-6 col-md-offset-2 custyle">
+   <a href="<?php echo $this->url('category-list') ?>" class="btn btn-primary"><b>+</b> All Categories</a>
+   <br><br>
+   <form role="form">
+          <div class="alert hidden"></div>
+    			<div class="form-group">
+						<input type="text" class="form-control" id='name' name="name" value='<?php echo $category->name ?>' placeholder="Name" required>
+					</div>
+        <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Update</button>
+  </form>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#submit').click(submit);
+
+    function submit(){
+      $.post( "<?php echo $this->url('category-edit-ajax') ?>",{name:$('#name').val(),id:'<?php echo $category->id ?>'} ,function( data ) {
+         var response = '<i class="glyphicon glyphicon-check"></i> Data Saved, Thanks! ';
+         $('.alert').html(response).removeClass('hidden').addClass('alert-success');
+      });
+    }
+  });
+</script>

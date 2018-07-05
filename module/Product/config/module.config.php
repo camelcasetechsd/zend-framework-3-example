@@ -8,22 +8,72 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
-        'routes' => [
-            'product' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/product/list',
-                    'defaults' => [
-                        'controller' => Controller\ProductController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ]
-        ],
+      'routes' => [
+          'product-list' => [
+              'type'    => Segment::class,
+              'options' => [
+                  'route'    => '/product/list',
+                  'defaults' => [
+                      'controller' => Controller\ProductController::class,
+                      'action'     => 'index',
+                  ],
+              ],
+          ],
+          'product-add' => [
+              'type'    => Segment::class,
+              'options' => [
+                  'route'    => '/product/add',
+                  'defaults' => [
+                      'controller' => Controller\ProductController::class,
+                      'action'     => 'add',
+                  ],
+              ],
+          ],
+          'product-edit' => [
+              'type'    => Segment::class,
+              'options' => [
+                  'route'    => '/product/edit[/:id]',
+                  'defaults' => [
+                      'controller' => Controller\ProductController::class,
+                      'action'     => 'edit',
+                  ],
+              ],
+          ],
+          'product-add-ajax' => [
+              'type'    => Segment::class,
+              'options' => [
+                  'route'    => '/product/post',
+                  'defaults' => [
+                      'controller' => Controller\ProductController::class,
+                      'action'     => 'addAjax',
+                  ],
+              ],
+          ],
+          'product-edit-ajax' => [
+              'type'    => Segment::class,
+              'options' => [
+                  'route'    => '/product/update',
+                  'defaults' => [
+                      'controller' => Controller\ProductController::class,
+                      'action'     => 'updateAjax',
+                  ],
+              ],
+          ],
+          'product-delete' => [
+              'type'    => Segment::class,
+              'options' => [
+                  'route'    => '/product/delete',
+                  'defaults' => [
+                      'controller' => Controller\ProductController::class,
+                      'action'     => 'deleteAjax',
+                  ],
+              ],
+          ],
+      ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\ProductController::class => InvokableFactory::class,
+            Controller\ProductController::class => Controller\ProductControllerFactory::class,
         ],
     ],
     'view_manager' => [
@@ -35,6 +85,8 @@ return [
         'template_map' => [
             'layout/layout'           =>  __DIR__ . '/../../../themes/default/layout/layout.phtml',
             'product/product/index' => __DIR__ . '/../view/product/index.phtml',
+            'product/product/add' => __DIR__ . '/../view/product/add.phtml',
+            'product/product/edit' => __DIR__ . '/../view/product/edit.phtml',
             // 'catalog/catalog/add' => __DIR__ . '/../view/catalog/add.phtml',
             // 'catalog/catalog/edit' => __DIR__ . '/../view/catalog/edit.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
