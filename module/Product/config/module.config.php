@@ -12,7 +12,7 @@ return [
           'product-list' => [
               'type'    => Segment::class,
               'options' => [
-                  'route'    => '/product/list',
+                  'route'    => '/product/list[/:id]',
                   'defaults' => [
                       'controller' => Controller\ProductController::class,
                       'action'     => 'index',

@@ -38,6 +38,11 @@ class ProductRepository extends EntityRepository
       return $row;
     }
 
+    public function findByCategory($id){
+      $data = $this->entityManager->getRepository(Product::class)->findBy(['category_id' => $id]);
+      return $data;
+    }
+
     // add  method
     public function create($data){
       // Create new Post entity.

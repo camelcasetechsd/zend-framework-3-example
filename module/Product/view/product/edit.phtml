@@ -14,7 +14,8 @@
                 <?php if ($product->category_id == $row->id): ?>
                     selected
                 <?php endif; ?>
-                value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+                value="<?php echo $row->id; ?>"><?php echo $row->name; ?>
+              </option>
              <?php endforeach; ?>
          </select>
        </div>
@@ -33,6 +34,7 @@
      <br/>
   </form>
 </div>
+
 <script type="text/javascript">
   $(document).ready(function(){
     $('#submit').click(submit);

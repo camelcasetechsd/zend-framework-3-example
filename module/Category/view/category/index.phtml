@@ -19,7 +19,7 @@
                <td><?php echo $cat->id ?></td>
                <td><?php echo $cat->name ?></td>
                <td class="pull-right">
-                 <a class='btn btn-default ' href="javascript:alert('in progress...')"><span class="glyphicon glyphicon-eye-open"></span> View Products </a>
+                 <a class='btn btn-default ' href="<?php echo $this->url('product-list').'/'.$cat->id ?>"><span class="glyphicon glyphicon-eye-open"></span> View Products </a>
                  <a class='btn btn-info ' href="<?php echo $this->url('category-edit').'/'.$cat->id ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                  <a data-catid="<?php echo $cat->id; ?>" href="javascript:void(0)" class="btn btn-danger  deleteCat"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                </td>

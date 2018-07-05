@@ -21,7 +21,15 @@ class ProductController extends AbstractActionController
   public function indexAction()
   {
       $products = new ProductRepository($this->entityManager);
-      $data = $products->findAll();
+      $id = (int)$this->params()->fromRoute('id', -1);
+
+
+      if ($id != '-1') {
+        $data = $products->findByCategory($id);
+      } else {
+        $data = $products->findAll();
+      }
+
       return new ViewModel(['products' => $data]);
   }
 
