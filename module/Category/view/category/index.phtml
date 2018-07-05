@@ -25,7 +25,7 @@
                <td><?php echo $cat->name ?></td>
                <td class="text-center">
                  <a class='btn btn-default btn-xs' href="javascript:alert('in progress...')"><span class="glyphicon glyphicon-eye-open"></span> View Products </a>
-                 <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                 <a class='btn btn-info btn-xs' href="<?php echo $this->url('category-edit').'/'.$cat->id ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                  <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                </td>
            </tr>

@@ -29,6 +29,16 @@ return [
                     ],
                 ],
             ],
+            'category-edit' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/category/edit[/:id]',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'edit',
+                    ],
+                ],
+            ],
             'category-add-ajax' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -36,6 +46,16 @@ return [
                     'defaults' => [
                         'controller' => Controller\CategoryController::class,
                         'action'     => 'addAjax',
+                    ],
+                ],
+            ],
+            'category-edit-ajax' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/category/update',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'updateAjax',
                     ],
                 ],
             ],
@@ -56,7 +76,7 @@ return [
           'layout/layout'           =>  __DIR__ . '/../../../themes/default/layout/layout.phtml',
           'category/category/index' => __DIR__ . '/../view/category/index.phtml',
           'category/category/add' => __DIR__ . '/../view/category/add.phtml',
-            // 'catalog/catalog/edit' => __DIR__ . '/../view/catalog/edit.phtml',
+          'category/category/edit' => __DIR__ . '/../view/category/edit.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],

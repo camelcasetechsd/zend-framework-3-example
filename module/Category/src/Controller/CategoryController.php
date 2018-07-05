@@ -35,13 +35,29 @@ class CategoryController extends AbstractActionController
            // Fill in the form with POST data
            $data = $this->params()->fromPost();
            // var_dump($data);
-           $category->save($data);
+           $category->create($data);
         }
         die;
     }
 
     public function editAction()
     {
-        return new ViewModel();
+      // Get post ID.
+        $id = (int)$this->params()->fromRoute('id', -1);
+        $category = new CategoryRepository($this->entityManager);
+        $data = $category->find($id);
+
+        return new ViewModel(['category' => $data]);
+    }
+
+    public function updateAjaxAction()
+    {
+        if($this->getRequest()->isPost()) {
+           $category = new CategoryRepository($this->entityManager);
+           // Fill in the form with POST data
+           $data = $this->params()->fromPost();
+           $category->update($data);
+        }
+        die;
     }
 }

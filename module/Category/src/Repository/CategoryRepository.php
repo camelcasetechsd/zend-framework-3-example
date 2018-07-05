@@ -27,8 +27,19 @@ class CategoryRepository extends EntityRepository
         return $categoryRepository->findAll();
     }
 
-    // add - update method
-    public function save($data){
+    public function find($id){
+      $row = $this->entityManager->getRepository(Category::class)
+              ->findOneById($id);
+      return $row;
+    }
+
+    public function findObj($id){
+      $row = $this->entityManager->getRepository(Category::class)->find($id);
+      return $row;
+    }
+
+    // add  method
+    public function create($data){
       // Create new Post entity.
         $category = new Category();
         // $category->name = $data['name'];
@@ -36,6 +47,21 @@ class CategoryRepository extends EntityRepository
 
         // Add the entity to entity manager.
         $this->entityManager->persist($category);
+
+        // Apply changes to database.
+        $this->entityManager->flush();
+
+    }
+
+    // update  method
+    public function update($data){
+
+        $category = new Category();
+        $category->setId($data['id']);
+        $category->setName($data['name']);
+
+        // Add the entity to entity manager.
+        $this->entityManager->merge($category);
 
         // Apply changes to database.
         $this->entityManager->flush();
