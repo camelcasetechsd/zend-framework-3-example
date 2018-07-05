@@ -68,9 +68,12 @@ class CategoryRepository extends EntityRepository
 
     }
 
-    // add - update method
-    public function delete(){
-
+    // delete cateogry method
+    public function delete($data){
+        $category = $this->findObj($data['id']);
+        $this->entityManager->remove($category);
+        // Apply changes to database.
+        $this->entityManager->flush();
     }
 
 

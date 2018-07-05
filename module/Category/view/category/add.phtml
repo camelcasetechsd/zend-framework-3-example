@@ -22,6 +22,7 @@
       $.post( "<?php echo $this->url('category-add-ajax') ?>",{name:$('#name').val()} ,function( data ) {
          var response = '<i class="glyphicon glyphicon-check"></i> Data Saved, Thanks! ';
          $('.alert').html(response).removeClass('hidden').addClass('alert-success');
+         $('#name').val('');
       });
     }
   });

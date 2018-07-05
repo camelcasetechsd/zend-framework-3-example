@@ -5,13 +5,8 @@
 <div class="row col-md-10 col-md-offset-2 custyle">
   <a href="<?php echo $this->url('category-add') ?>" class="btn btn-primary"><b>+</b> Add new Category</a>
   <br><br>
+   <?php if (count($categories)) { ?>
    <table class="table table-striped">
-     <?php
-      // echo "<pre>";
-      // var_dump($categories);
-      // echo "</pre>";
-
-     ?>
    <thead>
        <tr>
            <th>ID</th>
@@ -26,9 +21,27 @@
                <td class="text-center">
                  <a class='btn btn-default btn-xs' href="javascript:alert('in progress...')"><span class="glyphicon glyphicon-eye-open"></span> View Products </a>
                  <a class='btn btn-info btn-xs' href="<?php echo $this->url('category-edit').'/'.$cat->id ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                 <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                 <a data-catid="<?php echo $cat->id; ?>" href="javascript:void(0)" class="btn btn-danger btn-xs deleteCat"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                </td>
            </tr>
       <?php } ?>
    </table>
+ <?php } else { ?>
+    <div class="alert alert-info"> Empty , <a href="<?php echo $this->url('category-add'); ?>">Wanna Add new categories ?</a></div>
+ <?php } ?>
    </div>
+   <script type="text/javascript">
+     $(document).ready(function(){
+       $('.deleteCat').click(deleteCat);
+
+       function deleteCat(){
+         var $this = $(this);
+         var r = confirm("Are you sure you need to delete this category data?!");
+          if (r == true) {
+            $.post( "<?php echo $this->url('category-delete') ?>",{id:$this.data('catid')} ,function( data ) {
+              $this.parent().parent().fadeOut().css('background-color','red');
+            });
+          }
+       }
+     });
+   </script>

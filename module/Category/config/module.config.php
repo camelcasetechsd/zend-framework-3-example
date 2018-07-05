@@ -59,6 +59,16 @@ return [
                     ],
                 ],
             ],
+            'category-delete' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/category/delete',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'deleteAjax',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [

@@ -60,4 +60,17 @@ class CategoryController extends AbstractActionController
         }
         die;
     }
+
+    public function deleteAjaxAction()
+    {
+        if($this->getRequest()->isPost()) {
+           $category = new CategoryRepository($this->entityManager);
+           // Fill in the form with POST data
+           //$id = (int)$this->params()->fromRoute('id', -1);
+           $data = $this->params()->fromPost();
+           $category->delete($data);
+        }
+        // echo $id;
+        die;
+    }
 }
