@@ -68,8 +68,6 @@ class ProductController extends AbstractActionController
   {
       if($this->getRequest()->isPost()) {
          $product = new ProductRepository($this->entityManager);
-         // Fill in the form with POST data
-         //$id = (int)$this->params()->fromRoute('id', -1);
          $data = $this->params()->fromPost();
          $product->delete($data);
       }

@@ -2,7 +2,7 @@
     <h1>Manage Categories</h1>
 </div>
 
-<div class="row col-md-10 col-md-offset-2 custyle">
+<div class="row col-md-12">
   <a href="<?php echo $this->url('category-add') ?>" class="btn btn-primary"><b>+</b> Add new Category</a>
   <br><br>
    <?php if (count($categories)) { ?>
@@ -18,10 +18,10 @@
            <tr>
                <td><?php echo $cat->id ?></td>
                <td><?php echo $cat->name ?></td>
-               <td class="text-center">
-                 <a class='btn btn-default btn-xs' href="javascript:alert('in progress...')"><span class="glyphicon glyphicon-eye-open"></span> View Products </a>
-                 <a class='btn btn-info btn-xs' href="<?php echo $this->url('category-edit').'/'.$cat->id ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                 <a data-catid="<?php echo $cat->id; ?>" href="javascript:void(0)" class="btn btn-danger btn-xs deleteCat"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+               <td class="pull-right">
+                 <a class='btn btn-default ' href="javascript:alert('in progress...')"><span class="glyphicon glyphicon-eye-open"></span> View Products </a>
+                 <a class='btn btn-info ' href="<?php echo $this->url('category-edit').'/'.$cat->id ?>"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                 <a data-catid="<?php echo $cat->id; ?>" href="javascript:void(0)" class="btn btn-danger  deleteCat"><span class="glyphicon glyphicon-remove"></span> Delete</a>
                </td>
            </tr>
       <?php } ?>
