@@ -11,6 +11,7 @@ namespace Product\model;
 
 use Doctrine\ORM\EntityManager;
 use Product\Entity\Product as ProductEntity;
+use Category\Entity\Category as CategoryEntity;
 class Product
 {
     private $entityManager;
@@ -20,34 +21,45 @@ class Product
         $this->entityManager = $entityManager;
     }
 
-    public function createProduct($name, $description)
+    public function createProduct($name, $description, $price, $categoryId)
     {
+        $category = $this->entityManager->find(CategoryEntity::class, $categoryId);
         $productEntity = new ProductEntity();
         $productEntity->setName($name);
+        $productEntity->setPrice($price);
         $productEntity->setDescription($description);
-
+        $productEntity->setCategory($category);
         $this->entityManager->persist($productEntity);
         $this->entityManager->flush($productEntity);
     }
 
-    public function editProduct($id, $name, $description)
+    public function editProduct($id, $name, $description, $price, $categoryId)
     {
+        $category = $this->entityManager->find(CategoryEntity::class, $categoryId);
         $productEntity = new ProductEntity();
         $productEntity->setId($id);
         $productEntity->setName($name);
+        $productEntity->setPrice($price);
         $productEntity->setDescription($description);
+        $productEntity->setCategory($category);
         $this->entityManager->merge($productEntity);
         $this->entityManager->flush();
     }
 
     public function getProducts()
     {
-        return $this->entityManager->getRepository(ProductEntity::class)->findAll();
+        $categories = $this->entityManager->getRepository(ProductEntity::class)->findAll();
+        return $categories;
     }
 
     public function getProduct($id)
     {
         return $this->entityManager->find(ProductEntity::class, $id);
+    }
+
+    public function getProductsByCategory($id)
+    {
+        return $this->entityManager->getRepository(ProductEntity::class)->findBy(["category" => $id]);
     }
 
     public function deleteProduct($id)

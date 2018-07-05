@@ -4,6 +4,7 @@ namespace Category\Controller;
 
 use Category\Model\Category;
 use Doctrine\ORM\EntityManager;
+use Product\model\Product as ProductModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Category\Model\Category as CategoryModel;
@@ -55,9 +56,12 @@ class CategoryController extends AbstractActionController
         $id = $this->params("id");
 
         $categoryModel = new CategoryModel($this->entityManager);
-        $categoryEntity = $categoryModel->getCategory($id);
+        $productModel = new ProductModel($this->entityManager);
 
-        return new ViewModel(["category"=>$categoryEntity]);
+        $categoryEntity = $categoryModel->getCategory($id);
+        $productEntities = $productModel->getProductsByCategory($id);
+
+        return new ViewModel(["category"=>$categoryEntity, "products"=>$productEntities]);
     }
     public function deleteAction()
     {

@@ -30,6 +30,11 @@ class Product
      */
     private $description;
     /**
+     * @ORM\Column(type="float");
+     * @var float
+     */
+    private $price;
+    /**
      * @ORM\ManyToOne(targetEntity="Category\Entity\Category", inversedBy="products")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
@@ -49,6 +54,14 @@ class Product
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price)
+    {
+        $this->price = $price;
     }
 
     /**
@@ -81,6 +94,14 @@ class Product
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float
+    {
+        return $this->price;
     }
 
     /**

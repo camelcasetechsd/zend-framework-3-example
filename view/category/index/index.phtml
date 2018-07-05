@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h1>Categories</h1>
+    <h1 class="text-center">Categories</h1>
 </div>
 <div>
     <a href="/categories/new" class="btn btn-success">Create New Category</a>
@@ -21,7 +21,7 @@
                     echo "<td>".$category->getName()."</td>";
                     echo "<td>".$category->getDescription()."</td>";
                     echo "<td><a href='/categories/show/".$category->getId().
-                        "'> show <i class='glyphicon glyphicon-play'></i></a>";
+                        "'> show <i class='glyphicon glyphicon-folder-close'></i></a>";
                     echo "<a href='/categories/edit/".$category->getId().
                         "'> edit <i class='glyphicon glyphicon-edit'></i></a>";
                     echo "<a href='/categories/delete/".$category->getId().

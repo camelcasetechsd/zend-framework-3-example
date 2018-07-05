@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h1>Products</h1>
+    <h1 class="text-center">Products</h1>
 </div>
 <div>
     <a href="/products/new" class="btn btn-success">Create New Product</a>
@@ -9,7 +9,9 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Price</th>
                 <th>Description</th>
+                <th>Category</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -19,9 +21,11 @@
             {
                 echo "<tr>";
                     echo "<td>".$product->getName()."</td>";
+                    echo "<td>".$product->getPrice()."</td>";
                     echo "<td>".$product->getDescription()."</td>";
+                    echo "<td><a href='/categories/show/".$product->getCategory()->getId()."'>".$product->getCategory()->getName()."</a></td>";
                     echo "<td><a href='/products/show/".$product->getId().
-                        "'> show <i class='glyphicon glyphicon-play'></i></a>";
+                        "'> show <i class='glyphicon glyphicon-folder-close'></i></a>";
                     echo "<a href='/products/edit/".$product->getId().
                         "'> edit <i class='glyphicon glyphicon-edit'></i></a>";
                     echo "<a href='/products/delete/".$product->getId().

@@ -31,7 +31,7 @@ class ProductController extends AbstractActionController
         if ($this->getRequest()->isPost()){
             $data = $this->params()->fromPost();
             $productModel = new ProductModel($this->entityManager);
-            $productModel->createProduct($data["name"], $data["description"]);
+            $productModel->createProduct($data["name"], $data["description"], $data["price"], $data["category"]);
             $this->redirect()->toUrl("/products");
         }
         $categoryModel = new CategoryModel($this->entityManager);
@@ -44,10 +44,13 @@ class ProductController extends AbstractActionController
         $productEntity = $productModel->getProduct($id);
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
-            $productModel->editProduct($id, $data["name"], $data["description"]);
+            $productModel->editProduct($id, $data["name"], $data["description"], $data["price"], $data["category"]);
             $this->redirect()->toUrl("/products");
         }
-        return new ViewModel(["product"=>$productEntity]);
+        $categoryModel = new CategoryModel($this->entityManager);
+        return new ViewModel([
+            "product"=>$productEntity,
+            "categories" => $categoryModel->getCategories()]);
     }
     public function showAction()
     {
