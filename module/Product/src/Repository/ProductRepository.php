@@ -61,7 +61,10 @@ class ProductRepository extends EntityRepository
 
         $product = new Product();
         $product->setId($data['id']);
-        $product->setName($data['name']);
+        $product->setCategoryId($data['category']);
+        $product->setTitle($data['title']);
+        $product->setDescription($data['description']);
+        $product->setprice($data['price']);
 
         // Add the entity to entity manager.
         $this->entityManager->merge($product);
@@ -71,7 +74,7 @@ class ProductRepository extends EntityRepository
 
     }
 
-    // delete cateogry method
+    // delete product method
     public function delete($data){
         $product = $this->findObj($data['id']);
         $this->entityManager->remove($product);

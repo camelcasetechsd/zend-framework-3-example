@@ -49,8 +49,8 @@ class ProductController extends AbstractActionController
       $id = (int)$this->params()->fromRoute('id', -1);
       $product = new ProductRepository($this->entityManager);
       $data = $product->find($id);
-
-      return new ViewModel(['product' => $data]);
+      $categories = new CategoryRepository($this->entityManager);
+      return new ViewModel(['product' => $data,'categories' => $categories->findAll()]);
   }
 
   public function updateAjaxAction()
