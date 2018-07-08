@@ -6,11 +6,14 @@
     "require": {
         "php": "^7.0",
         "zendframework/zend-component-installer": "^1.0",
-        "zendframework/zend-mvc": "^3.0.1"
+        "zendframework/zend-mvc": "^3.0.1",
+        "doctrine/doctrine-orm-module": "^1.1"
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "Product\\": "module/Product/src/",
+            "Category\\": "module/Category/src/"
         }
     },
     "autoload-dev": {
