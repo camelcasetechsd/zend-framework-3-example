@@ -16,5 +16,10 @@ docker-compose up
 For the first install, **Docker** may take some time as it will download the
 images it requires. For subsequent runs, the start up time should be much faster.
 
-3. View the test page:
+3. Run init script
+```
+docker-compose exec app ./docker-init.sh
+```
+
+4. View the test page:
 http://localhost:8080/
