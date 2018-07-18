@@ -1,8 +1,8 @@
 <?php
 
-namespace ExampleTest\Controller;
+namespace ProductTest\Controller;
 
-use Example\Controller\IndexController;
+use Product\Controller\ProductController;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
@@ -29,7 +29,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->dispatch('/', 'GET');
         $this->assertResponseStatusCode(200);
         $this->assertModuleName('example');
-        $this->assertControllerName(IndexController::class); // as specified in router's controller name alias
+        $this->assertControllerName(ProductController::class); // as specified in router's controller name alias
         $this->assertControllerClass('IndexController');
         $this->assertMatchedRouteName('home');
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example;
+namespace Category;
 
 class Module
 {

@@ -15,7 +15,6 @@ class ProductManagerFactory implements FactoryInterface
                              $requestedName, array $options = null)
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-
         // Instantiate the service and inject dependencies
         return new ProductManager($entityManager);
     }

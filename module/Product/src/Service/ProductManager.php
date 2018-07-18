@@ -2,8 +2,6 @@
 namespace Product\Service;
 
 use Product\Entity\Product;
-use Product\Entity\Comment;
-use Product\Entity\Tag;
 use Zend\Filter\StaticFilter;
 
 // The ProductManager service is responsible for adding new products.

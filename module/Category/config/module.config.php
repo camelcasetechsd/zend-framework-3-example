@@ -1,6 +1,6 @@
 <?php
 
-namespace Example;
+namespace Category;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -9,10 +9,14 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'example' => [
+            'category' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/example[/:action]',
+                    'route' => '/category[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -28,12 +32,12 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            Service\ExampleService::class => InvokableFactory::class,
+            Service\CategoryService::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [
         'template_map' => [
-            'example/index/index' => __DIR__ . '/../view/example/index/index.phtml',
+            'category/index/index' => __DIR__ . '/../view/category/index/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
