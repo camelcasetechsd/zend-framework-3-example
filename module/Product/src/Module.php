@@ -1,6 +1,6 @@
 <?php
 
-namespace Application;
+namespace Product;
 
 class Module
 {
