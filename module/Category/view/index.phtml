@@ -1,34 +1,33 @@
-<h1>Categories <a href="<?= $this->url('category').DIRECTORY_SEPARATOR .  'add' ?>" class="btn btn-primary btn-lg pull-right">Add</a>
- </h1>
-
-
+<h1>Categories <a
+            href="<?= $this->url('category') . DIRECTORY_SEPARATOR . 'add' ?>"
+            class="btn btn-primary btn-lg pull-right">Add</a></h1>
 <table class="table">
     <thead>
     <tr>
         <th>Title</th>
         <th>Created Time</th>
-        <th>Actions</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    <?php foreach($this->categories as $category): ?>
+    <?php foreach ($this->categories as $category) : ?>
         <tr>
             <td> <?= $this->escapeHtml($category->getTitle()); ?></td>
             <td> <?= $this->escapeHtml($category->getDateCreated()); ?></td>
 
             <td>
-
                 <div class="text-center">
-                <a href="<?= $this->url('category').DIRECTORY_SEPARATOR .  'edit' . DIRECTORY_SEPARATOR . $category->getId(); ?>" class="btn btn-success btn-lg pull-right">Edit</a>
-                <a href="<?= $this->url('category').DIRECTORY_SEPARATOR .  'delete'. DIRECTORY_SEPARATOR . $category->getId(); ?>" class="btn btn-danger btn-lg pull-right">Delete</a>
+                    <a href="<?= $this->url('category')
+                    . DIRECTORY_SEPARATOR . 'edit'
+                    . DIRECTORY_SEPARATOR . $category->getId(); ?>"
+                       class="btn btn-success btn-lg pull-right">Edit</a>
+                    <a href="<?= $this->url('category')
+                    . DIRECTORY_SEPARATOR . 'delete'
+                    . DIRECTORY_SEPARATOR . $category->getId(); ?>"
+                       class="btn btn-danger btn-lg pull-right">Delete</a>
                 </div>
             </td>
-
         </tr>
     <?php endforeach; ?>
-
     </tbody>
 </table>
-
-
-

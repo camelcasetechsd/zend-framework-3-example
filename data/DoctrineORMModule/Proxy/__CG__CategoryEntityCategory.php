@@ -64,10 +64,10 @@ class Category extends \Category\Entity\Category implements \Doctrine\ORM\Proxy\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'id', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'title', 'dateCreated'];
+            return ['__isInitialized__', 'dateCreated', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'id', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'title'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'id', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'title', 'dateCreated'];
+        return ['__isInitialized__', 'dateCreated', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'id', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'title'];
     }
 
     /**

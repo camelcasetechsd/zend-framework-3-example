@@ -1,6 +1,9 @@
 <?php
+
 namespace Product\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Product
  * @ORM\Entity
@@ -9,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    /**
+     * @ORM\Column(name="date_created")
+     */
+    protected $dateCreated;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
@@ -27,24 +34,23 @@ class Product
      * @var string
      */
     private $price;
-
     /**
      * @ORM\Column(type="integer")
      * @var integer
      */
     private $category_id;
-
-
     /**
-     * @ORM\Column(name="date_created")
+     * @ORM\ManyToOne(targetEntity="\Category\Entity\Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    protected $dateCreated;
+    private $category;
 
 
     /*  getter/setter methods */
 
 
     // Returns ID
+
     public function getId()
     {
         return $this->id;
@@ -70,7 +76,6 @@ class Product
     }
 
 
-
     // Returns Price
     public function getPrice()
     {
@@ -84,18 +89,24 @@ class Product
     }
 
 
-
-
-    // Returns CategoryId
+    /**
+     *
+     * @return int
+     */
     public function getCategoryId()
     {
         return $this->category_id;
     }
 
     // Sets CategoryId
-    public function setCategoryId($category_id)
+
+    /**
+     * @param $id
+     *
+     */
+    public function setCategoryId($id)
     {
-        $this->category_id = $category_id;
+        $this->category_id = $id;
     }
 
     // Returns the date when this item was created.
@@ -110,15 +121,6 @@ class Product
         $this->dateCreated = $dateCreated;
     }
 
-
-    /*Relations*/
-
-    /**
-     * @ORM\ManyToOne(targetEntity="\Category\Entity\Category", inversedBy="categories")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     */
-    protected $category;
-
     /*
      * Returns associated category.
      * @return \Category\Entity\Category
@@ -128,6 +130,7 @@ class Product
         return $this->category;
     }
 
+
     /**
      * Sets associated category.
      * @param \Category\Entity\Category $category
@@ -135,10 +138,5 @@ class Product
     public function setCategory($category)
     {
         $this->category = $category;
-        $category->addComment($this);
     }
-
-
-
-
 }

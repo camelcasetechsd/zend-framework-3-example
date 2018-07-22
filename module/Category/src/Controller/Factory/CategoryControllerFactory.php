@@ -1,19 +1,18 @@
 <?php
 
-namespace Product\Controller\Factory;
+namespace Category\Controller\Factory;
 
+use Category\Controller\CategoryController;
 use Interop\Container\ContainerInterface;
-use Product\Controller\ProductController;
-use Product\Service\ProductManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ProductControllerFactory implements FactoryInterface
+class CategoryControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         // Get Doctrine entity manager
+        $categoryService = $container->get('Category\Service\CategoryManager');
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        $productManager = $container->get(ProductManager::class);
-        return new ProductController($productManager, $entityManager);
+        return new CategoryController($categoryService, $entityManager);
     }
 }

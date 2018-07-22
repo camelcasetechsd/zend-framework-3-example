@@ -1,18 +1,16 @@
 <?php
 
 namespace Product\Controller;
+
 use Category\Entity\Category;
-use DoctrineORMModule\Options\EntityManager;
-
-use function PHPSTORM_META\type;
-
+use Doctrine\ORM\EntityManager;
 use Product\Entity\Product;
 use Product\Form\CategoryForm;
 use Product\Form\ProductForm;
 use Product\Service\ProductManager;
+use Product\Service\ProductService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Product\Service\ProductService;
 
 class ProductController extends AbstractActionController
 {
@@ -20,9 +18,7 @@ class ProductController extends AbstractActionController
     private $entityManager;
 
 
-
-
-    public function __construct(ProductManager $productManager , \Doctrine\ORM\EntityManager  $entityManager)
+    public function __construct(ProductManager $productManager, EntityManager $entityManager)
     {
 
         $this->productManager = $productManager;
@@ -36,11 +32,6 @@ class ProductController extends AbstractActionController
         $products = $this->entityManager->getRepository(Product::class)->findAll();
 
         $view = new ViewModel();
-//        // $view->setTemplate('index');
-
-//        // $view->setTemplate('product/index'); // path to phtml file under view folder
-//        // $view->setTemplate('product/view/index.phtml');  // module/Test/view/test/test/
-
         $view->products = $products;
         return $view;
     }
@@ -64,19 +55,13 @@ class ProductController extends AbstractActionController
 
         // Check whether this product is a POST request.
         if ($this->getRequest()->isPost()) {
-
             // Get POST data.
             $data = $this->params()->fromPost();
-
-            
-
             // Fill form with data.
             $form->setData($data);
             if ($form->isValid()) {
                 // Get validated form data.
                 $data = $form->getData();
-
-//                $data['category_id'] = (int) $data['category_id'];
                 // Use product manager service to add new product to database.
                 $this->productManager->addNewProduct($data);
                 // Redirect the user to "index" page.
@@ -86,11 +71,9 @@ class ProductController extends AbstractActionController
 
         // Render the view template.
 
-        $view =  new ViewModel([
+        $view = new ViewModel([
             'form' => $form,
         ]);
-
-//        // $view->setTemplate('add');
 
         return $view;
     }
@@ -103,12 +86,10 @@ class ProductController extends AbstractActionController
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
 
 
-
         $form = new ProductForm($categories);
 
         // Get product ID.
         $productId = $this->params()->fromRoute('id', -1);
-
 
 
         // Find existing product in the database.
@@ -124,30 +105,21 @@ class ProductController extends AbstractActionController
 
         // Check whether this product is a POST request.
         if ($this->getRequest()->isPost()) {
-
             // Get POST data.
             $data = $this->params()->fromPost();
-
-
-
 
 
             // Fill form with data.
             $form->setData($data);
             if ($form->isValid()) {
-
-
-
                 // Get validated form data.
                 $data = $form->getData();
 
                 // Use product manager service to add new product to database.
-
-
                 $this->productManager->updateProduct($product, $data);
 
                 // Redirect the user to "admin" page.
-                return $this->redirect()->toRoute('product', ['action'=>'index']);
+                return $this->redirect()->toRoute('product', ['action' => 'index']);
             }
         } else {
             $data = [
@@ -157,21 +129,17 @@ class ProductController extends AbstractActionController
             ];
 
 
-
             $form->setData($data);
         }
 
 
-
-
         // Render the view template.
-        $view =  new ViewModel([
+        $view = new ViewModel([
             'form' => $form,
             'product' => $product
         ]);
 
-        // $view->setTemplate('edit');
-        return $view ;
+        return $view;
     }
 
 
@@ -190,6 +158,6 @@ class ProductController extends AbstractActionController
         $this->productManager->removeProduct($product);
 
         // Redirect the user to "index" page.
-        return $this->redirect()->toRoute('product', ['action'=>'index']);
+        return $this->redirect()->toRoute('product', ['action' => 'index']);
     }
 }

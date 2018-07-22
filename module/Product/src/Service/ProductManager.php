@@ -1,19 +1,20 @@
 <?php
+
 namespace Product\Service;
 
 use Category\Entity\Category;
 use Doctrine\ORM\EntityManager;
 use Product\Entity\Product;
-use Zend\Filter\StaticFilter;
 
 // The ProductManager service is responsible for adding new products.
 class ProductManager
 {
     /**
      * Doctrine entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     private $entityManager;
+
     // Constructor is used to inject dependencies into the service.
     public function __construct(EntityManager $entityManager)
     {
@@ -40,11 +41,6 @@ class ProductManager
 
 
         $product->setCategory($category);
-//        echo '<pre>';
-//        var_dump($product);
-//        echo '</pre>';
-//        $product->setContent($data['content']);
-//        $product->setStatus($data['status']);
         $currentDate = date('Y-m-d H:i:s');
         $product->setDateCreated($currentDate);
         // Add the entity to entity manager.
@@ -52,10 +48,7 @@ class ProductManager
 
         // Apply changes to database.
         $this->entityManager->flush();
-
     }
-
-
 
 
     // This method allows to update data of a single post.
@@ -68,11 +61,9 @@ class ProductManager
         $product->setCategoryId($data['category_id']);
 
 
-
         // Apply changes to database.
         $this->entityManager->flush();
     }
-
 
 
     // Removes post and all associated comments.
@@ -81,7 +72,4 @@ class ProductManager
         $this->entityManager->remove($post);
         $this->entityManager->flush();
     }
-
-
-
 }

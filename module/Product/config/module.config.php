@@ -2,24 +2,22 @@
 
 namespace Product;
 
-use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
         'routes' => [
             'product' => [
-                'type'    => Segment::class,
+                'type' => Segment::class,
                 'options' => [
                     'route' => '/product[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
+                        'id' => '[0-9]+',
                     ],
                     'defaults' => [
                         'controller' => Controller\ProductController::class,
-                        'action'     => 'index',
+                        'action' => 'index',
                     ],
                 ],
             ],
@@ -36,9 +34,17 @@ return [
 
         ],
     ],
+
     'view_manager' => [
+        'display_not_found_reason' => true,
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => [
-            'product/index/index' => __DIR__ . '/../view/product/index/index.phtml',
+            'product/product/index' => __DIR__ . '/../view/index.phtml',
+            'product/product/add' => __DIR__ . '/../view/add.phtml',
+            'product/product/edit' => __DIR__ . '/../view/edit.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',

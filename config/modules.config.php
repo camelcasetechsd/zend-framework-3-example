@@ -16,6 +16,8 @@ return [
     'Zend\Validator',
     'DoctrineModule',
     'DoctrineORMModule',
+//    'ZFTool',
     'Application',
-    'Example'
+    'Product',
+    'Category',
 ];

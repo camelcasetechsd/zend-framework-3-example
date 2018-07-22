@@ -4,21 +4,23 @@ namespace Product\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
-use Product\Entity\Post;
 
 /**
  * This form is used to collect product data.
  */
 class ProductForm extends Form
 {
+    private $categories;
+
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct($categories)
     {
         // Define form name
         parent::__construct('product-form');
 
+        $this->categories = $categories;
         // Set POST method for this form
         $this->setAttribute('method', 'post');
         $this->addElements();
@@ -33,62 +35,81 @@ class ProductForm extends Form
 
         // Add "title" field
         $this->add([
-            'type'  => 'text',
+            'type' => 'text',
             'name' => 'title',
             'attributes' => [
                 'id' => 'title'
             ],
+
+
             'options' => [
                 'label' => 'Title',
             ],
         ]);
 
-        // Add "content" field
+
+        // Add "category_id" field
         $this->add([
-            'type'  => 'textarea',
-            'name' => 'content',
+            'type' => 'number',
+            'name' => 'category_id',
             'attributes' => [
-                'id' => 'content'
+                'id' => 'category_id',
             ],
+
             'options' => [
-                'label' => 'Content',
+                'label' => 'Category',
             ],
         ]);
 
-        // Add "tags" field
+
+        // Add "Price" field
         $this->add([
-            'type'  => 'text',
-            'name' => 'tags',
+            'type' => 'number',
+            'name' => 'price',
             'attributes' => [
-                'id' => 'tags'
+                'id' => 'Price',
             ],
+
             'options' => [
-                'label' => 'Tags',
+                'label' => 'Price',
             ],
         ]);
 
-        // Add "status" field
+
+        /* convert array of objects to array of properties
+
+                                [
+                                     '0' => 'French',
+                                     '1' => 'English',
+                                     '2' => 'Japanese',
+                                     '3' => 'Chinese',
+                                 ]
+        */
+
+        $categoriesForView = [
+            '' => '## Select ##'
+        ];
+        foreach ($this->categories as $category) {
+            $categoriesForView[$category->getId()] = $category->getTitle();
+        }
+
+
         $this->add([
-            'type'  => 'select',
-            'name' => 'status',
-            'attributes' => [
-                'id' => 'status'
-            ],
+            'type' => 'Select',
+            'name' => 'category_id',
             'options' => [
-                'label' => 'Status',
-                'value_options' => [
-                    Post::STATUS_PUBLISHED => 'Published',
-                    Post::STATUS_DRAFT => 'Draft',
-                ]
-            ],
+                'label' => 'Category',
+                'value_options' => $categoriesForView
+            ]
         ]);
+
 
         // Add the submit button
         $this->add([
-            'type'  => 'submit',
+            'type' => 'submit',
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Create',
+                'value' => 'Save',
                 'id' => 'submitbutton',
             ],
         ]);
@@ -104,16 +125,16 @@ class ProductForm extends Form
         $this->setInputFilter($inputFilter);
 
         $inputFilter->add([
-            'name'     => 'title',
+            'name' => 'title',
             'required' => true,
-            'filters'  => [
+            'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
                 ['name' => 'StripNewlines'],
             ],
             'validators' => [
                 [
-                    'name'    => 'StringLength',
+                    'name' => 'StringLength',
                     'options' => [
                         'min' => 1,
                         'max' => 1024
@@ -122,51 +143,20 @@ class ProductForm extends Form
             ],
         ]);
 
+
         $inputFilter->add([
-            'name'     => 'content',
+            'name' => 'price',
             'required' => true,
-            'filters'  => [
+            'filters' => [
                 ['name' => 'StripTags'],
             ],
             'validators' => [
                 [
-                    'name'    => 'StringLength',
+                    'name' => 'StringLength',
                     'options' => [
                         'min' => 1,
                         'max' => 4096
                     ],
-                ],
-            ],
-        ]);
-
-        $inputFilter->add([
-            'name'     => 'tags',
-            'required' => true,
-            'filters'  => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name'    => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 1024
-                    ],
-                ],
-            ],
-        ]);
-
-        $inputFilter->add([
-            'name' => 'status',
-            'required' => true,
-            'validators' => [
-                [
-                    'name' => 'InArray',
-                    'options'=> [
-                        'haystack' => [Post::STATUS_PUBLISHED, Post::STATUS_DRAFT],
-                    ]
                 ],
             ],
         ]);

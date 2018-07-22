@@ -2,20 +2,18 @@
 $form = $this->form;
 $form->get('title')->setAttributes([
     'class' => 'form-control',
-    'placeholder' => 'Enter Category title here'
+    'placeholder' => 'Enter category title here'
 ]);
 
-
 $form->get('submit')->setAttributes(['class' => 'btn btn-primary']);
-$form->get('submit')->setValue('Save');
 $form->prepare();
 
 ?>
 
-<h1>Edit Category</h1>
+<h1>Add New Category</h1>
 
 <p>
-    Please fill out the following form and click the *Save* button.
+    Please fill out the following form and click the <i>Create</i> button.
 </p>
 
 <div class="row">
@@ -28,8 +26,9 @@ $form->prepare();
             <?= $this->formElementErrors($form->get('title')); ?>
         </div>
 
+
         <?= $this->formElement($form->get('submit')); ?>
 
         <?= $this->form()->closeTag(); ?>
     </div>
-</div>
+</div>   

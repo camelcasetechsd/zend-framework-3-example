@@ -4,19 +4,17 @@ namespace Category\Controller;
 
 use Category\Entity\Category;
 use Category\Form\CategoryForm;
+use Category\Service\CategoryManager;
 use Doctrine\ORM\EntityManager;
-use function PHPSTORM_META\type;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-
-use Category\Service\CategoryManager;
 
 class CategoryController extends AbstractActionController
 {
     private $categoryManager;
     private $entityManager;
 
-    public function __construct(CategoryManager $categoryManager , EntityManager $entityManager)
+    public function __construct(CategoryManager $categoryManager, EntityManager $entityManager)
     {
         $this->categoryManager = $categoryManager;
         $this->entityManager = $entityManager;
@@ -24,16 +22,11 @@ class CategoryController extends AbstractActionController
 
     public function indexAction()
     {
-
-
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
         $view = new ViewModel();
-//        // $view->setTemplate('category/category/index');
         $view->categories = $categories;
         return $view;
     }
-
-
 
 
     /**
@@ -46,16 +39,12 @@ class CategoryController extends AbstractActionController
     {
 
 
-
         // Create the form.
         $form = new CategoryForm();
 
         // Check whether this category is a POST request.
         if ($this->getRequest()->isPost()) {
-
-            // Get  data.
             $data = $this->params()->fromPost();
-
 
             // Fill form with data.
             $form->setData($data);
@@ -71,7 +60,7 @@ class CategoryController extends AbstractActionController
 
         // Render the view template.
 
-        $view =  new ViewModel([
+        $view = new ViewModel([
             'form' => $form,
         ]);
 
@@ -86,13 +75,10 @@ class CategoryController extends AbstractActionController
         // Create the form.
 
 
-
-
         $form = new CategoryForm();
 
         // Get Category ID.
         $category_id = $this->params()->fromRoute('id', -1);
-
 
 
         // Find existing product in the database.
@@ -108,28 +94,19 @@ class CategoryController extends AbstractActionController
 
         // Check whether this product is a POST request.
         if ($this->getRequest()->isPost()) {
-
             // Get POST data.
             $data = $this->params()->fromPost();
-
-
-
-
 
             // Fill form with data.
             $form->setData($data);
             if ($form->isValid()) {
-
-
-
                 // Get validated form data.
                 $data = $form->getData();
-
                 // Use product manager service to add new product to database.
                 $this->categoryManager->updateCategory($category, $data);
 
                 // Redirect the user to "admin" page.
-                return $this->redirect()->toRoute('category', ['action'=>'index']);
+                return $this->redirect()->toRoute('category', ['action' => 'index']);
             }
         } else {
             $data = [
@@ -137,20 +114,17 @@ class CategoryController extends AbstractActionController
             ];
 
 
-
             $form->setData($data);
         }
 
 
-
-
         // Render the view template.
-        $view =  new ViewModel([
+        $view = new ViewModel([
             'form' => $form,
             'category' => $category
         ]);
 
-        return $view ;
+        return $view;
     }
 
     // This "delete" action displays the Delete Post page.
@@ -168,6 +142,6 @@ class CategoryController extends AbstractActionController
         $this->categoryManager->removeCategory($product);
 
         // Redirect the user to "index" page.
-        return $this->redirect()->toRoute('category', ['action'=>'index']);
+        return $this->redirect()->toRoute('category', ['action' => 'index']);
     }
 }

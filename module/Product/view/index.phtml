@@ -1,0 +1,50 @@
+<h1>Products <a href="<?= $this->url('product') . DIRECTORY_SEPARATOR . 'add' ?>"
+                class="btn btn-primary btn-lg pull-right">Add</a>
+</h1>
+<?php if (count($this->products)) : ?>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Created Time</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->products as $product) : ?>
+            <tr>
+                <td> <?= $this->escapeHtml($product->getTitle()); ?></td>
+                <td> <?= $this->escapeHtml($product->getPrice()); ?></td>
+                <td> <?= $this->escapeHtml($product->getCategory()->getTitle()); ?></td>
+                <td> <?= $this->escapeHtml($product->getDateCreated()); ?></td>
+                <td>
+
+                    <div class="text-center">
+                        <a href="<?=
+                        $this->url('product')
+                        . DIRECTORY_SEPARATOR . 'edit'
+                        . DIRECTORY_SEPARATOR . $product->getId();
+                        ?>"
+                           class="btn btn-success btn-lg pull-right">Edit</a>
+                        <a href="<?=
+                        $this->url('product') .
+                        DIRECTORY_SEPARATOR . 'delete'
+                        . DIRECTORY_SEPARATOR . $product->getId();
+                        ?>"
+                           class="btn btn-danger btn-lg pull-right">Delete</a>
+
+                    </div>
+
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+        </tbody>
+    </table>
+<?php else : ?>
+    <p>No products</p>
+<?php endif; ?>
+
+

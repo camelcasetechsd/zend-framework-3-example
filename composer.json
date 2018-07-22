@@ -7,19 +7,22 @@
         "php": "^7.0",
         "zendframework/zend-component-installer": "^1.0",
         "zendframework/zend-mvc": "^3.0.1",
-        "doctrine/doctrine-orm-module": "^1.1"
+        "doctrine/doctrine-orm-module": "^1.1",
+        "zendframework/zftool": "dev-master"
     },
     "autoload": {
         "psr-4": {
           "Application\\": "module/Application/src/",
-          "Example\\": "module/Example/src/"
+          "Product\\": "module/Product/src/",
+          "Category\\": "module/Category/src/"
 
         }
     },
     "autoload-dev": {
         "psr-4": {
             "ApplicationTest\\": "module/Application/test/",
-            "ExampleTest\\": "module/Example/test/"
+            "ProductTest\\": "module/Product/test/",
+            "CategoryTest\\": "module/Category/test/"
         }
     },
     "extra": [],
