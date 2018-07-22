@@ -2,8 +2,8 @@
 namespace Product\Service\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
 use Product\Service\ProductManager;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * This is the factory for ProductManager. Its purpose is to instantiate the

@@ -1,10 +1,14 @@
 <?php
 
 namespace Product\Controller;
+use Category\Entity\Category;
+use DoctrineORMModule\Options\EntityManager;
+
 use function PHPSTORM_META\type;
 
 use Product\Entity\Product;
-use Doctrine\ORM\EntityManager;
+use Product\Form\CategoryForm;
+use Product\Form\ProductForm;
 use Product\Service\ProductManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -18,8 +22,9 @@ class ProductController extends AbstractActionController
 
 
 
-    public function __construct(ProductManager $productManager , EntityManager $entityManager)
+    public function __construct(ProductManager $productManager , \Doctrine\ORM\EntityManager  $entityManager)
     {
+
         $this->productManager = $productManager;
         $this->entityManager = $entityManager;
     }
@@ -31,6 +36,11 @@ class ProductController extends AbstractActionController
         $products = $this->entityManager->getRepository(Product::class)->findAll();
 
         $view = new ViewModel();
+//        // $view->setTemplate('index');
+
+//        // $view->setTemplate('product/index'); // path to phtml file under view folder
+//        // $view->setTemplate('product/view/index.phtml');  // module/Test/view/test/test/
+
         $view->products = $products;
         return $view;
     }
@@ -38,52 +48,148 @@ class ProductController extends AbstractActionController
 
     /**
      * This action displays the "New Product" page. The page contains
-     * a form allowing to enter post title, content and tags. When
+     * a form allowing to enter product title, content and tags. When
      * the user clicks the Submit button, a new Product entity will
      * be created.
      */
     public function addAction()
     {
-        // Create the form.
-        $form = new ProductForm();
 
-        // Check whether this post is a POST request.
+        $categories = $this->entityManager->getRepository(Category::class)->findAll();
+
+
+        // Create the form.
+        $form = new ProductForm($categories);
+
+
+        // Check whether this product is a POST request.
         if ($this->getRequest()->isPost()) {
 
             // Get POST data.
-            $data = $this->params()->fromProduct();
+            $data = $this->params()->fromPost();
+
+            
+
+            // Fill form with data.
+            $form->setData($data);
+            if ($form->isValid()) {
+                // Get validated form data.
+                $data = $form->getData();
+
+//                $data['category_id'] = (int) $data['category_id'];
+                // Use product manager service to add new product to database.
+                $this->productManager->addNewProduct($data);
+                // Redirect the user to "index" page.
+                return $this->redirect()->toRoute('product');
+            }
+        }
+
+        // Render the view template.
+
+        $view =  new ViewModel([
+            'form' => $form,
+        ]);
+
+//        // $view->setTemplate('add');
+
+        return $view;
+    }
+
+    // This action displays the page allowing to edit a product.
+    public function editAction()
+    {
+        // Create the form.
+
+        $categories = $this->entityManager->getRepository(Category::class)->findAll();
+
+
+
+        $form = new ProductForm($categories);
+
+        // Get product ID.
+        $productId = $this->params()->fromRoute('id', -1);
+
+
+
+        // Find existing product in the database.
+        $product = $this->entityManager->getRepository(Product::class)
+            ->findOneById($productId);
+
+
+        if ($product == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+
+        // Check whether this product is a POST request.
+        if ($this->getRequest()->isPost()) {
+
+            // Get POST data.
+            $data = $this->params()->fromPost();
+
+
+
+
 
             // Fill form with data.
             $form->setData($data);
             if ($form->isValid()) {
 
+
+
                 // Get validated form data.
                 $data = $form->getData();
 
-                // Use post manager service to add new post to database.
-                $this->postManager->addNewProduct($data);
+                // Use product manager service to add new product to database.
 
-                // Redirect the user to "index" page.
-                return $this->redirect()->toRoute('application');
+
+                $this->productManager->updateProduct($product, $data);
+
+                // Redirect the user to "admin" page.
+                return $this->redirect()->toRoute('product', ['action'=>'index']);
             }
+        } else {
+            $data = [
+                'title' => $product->getTitle(),
+                'price' => $product->getPrice(),
+                'category_id' => $product->getCategoryId(),
+            ];
+
+
+
+            $form->setData($data);
         }
 
+
+
+
         // Render the view template.
-        return new ViewModel([
-            'form' => $form
+        $view =  new ViewModel([
+            'form' => $form,
+            'product' => $product
         ]);
-    }
 
-    public function editAction()
-    {
-        $view = new ViewModel();
-        return $view;
+        // $view->setTemplate('edit');
+        return $view ;
     }
 
 
+    // This "delete" action displays the Delete Post page.
     public function deleteAction()
     {
-        $view = new ViewModel();
-        return $view;
+        $productId = $this->params()->fromRoute('id', -1);
+
+        $product = $this->entityManager->getRepository(Product::class)
+            ->findOneById($productId);
+        if ($product == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $this->productManager->removeProduct($product);
+
+        // Redirect the user to "index" page.
+        return $this->redirect()->toRoute('product', ['action'=>'index']);
     }
 }

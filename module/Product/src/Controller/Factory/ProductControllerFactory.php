@@ -15,7 +15,6 @@ class ProductControllerFactory implements FactoryInterface
 
         // Get Doctrine entity manager
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-//        $productService = $container->get('Product\Service\ProductService');
         $productManager = $container->get(ProductManager::class);
         return new ProductController($productManager,$entityManager);
     }
